@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand-brown: #4f3727;
+  --dark-brown: #20150f;
+  --muted-brown: #765f50;
+  --club-yellow: #ffd23f;
+  --cream: #fff8e7;
+  --background: #fff8e7;
+  --foreground: #4f3727;
 }
 
 @theme inline {
@@ -12,15 +17,566 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), "Arial Narrow", Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.sport-title {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", var(--font-geist-sans), sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.sport-label {
+  font-family: "Arial Black", Impact, var(--font-geist-sans), sans-serif;
+  letter-spacing: 0.16em;
+}
+
+.section-kicker {
+  color: var(--brand-brown);
+  font-family: "Arial Black", Impact, var(--font-geist-sans), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  margin-top: 0.85rem;
+  color: var(--brand-brown);
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", var(--font-geist-sans), sans-serif;
+  font-size: clamp(2.2rem, 4vw, 4.5rem);
+  font-weight: 950;
+  letter-spacing: 0.02em;
+  line-height: 0.96;
+  text-transform: uppercase;
+}
+
+.brand-card {
+  border: 1px solid rgba(79, 55, 39, 0.16);
+  background:
+    linear-gradient(135deg, rgba(255, 210, 63, 0.12), transparent 42%),
+    var(--cream);
+  box-shadow: 0 18px 40px rgba(79, 55, 39, 0.08);
+}
+
+.section-dark {
+  background:
+    radial-gradient(circle at 88% 14%, rgba(255, 210, 63, 0.13), transparent 28%),
+    linear-gradient(135deg, var(--brand-brown), var(--dark-brown));
+}
+
+.reveal {
+  animation: reveal-up 0.9s ease both;
+}
+
+.stat-tile,
+.fixture-row,
+.motion-card,
+.fan-button,
+.shop-item,
+.ticket-panel {
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background 220ms ease;
+}
+
+.stat-tile:hover,
+.fixture-row:hover,
+.motion-card:hover,
+.fan-button:hover,
+.shop-item:hover,
+.ticket-panel:hover {
+  transform: translateY(-6px);
+}
+
+.motion-card:hover,
+.ticket-panel:hover {
+  box-shadow: 0 26px 60px rgba(32, 21, 15, 0.18);
+}
+
+.fixture-row {
+  animation: slide-in-right 0.85s ease both;
+}
+
+.fixture-row:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.fixture-row:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+.fan-button:hover,
+.shop-item:hover {
+  border-color: var(--club-yellow);
+  background: rgba(255, 210, 63, 0.18);
+}
+
+.hero-visual {
+  animation: slide-in-right 1s ease both;
+}
+
+.champion-ribbon {
+  max-width: 300px;
+  transform: rotate(-2deg);
+  animation: float-card 4s ease-in-out infinite;
+}
+
+.crest-orbit {
+  animation: crest-pulse 5s ease-in-out infinite;
+}
+
+.image-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.image-tile {
+  position: relative;
+  min-height: 210px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 210, 63, 0.26);
+  background:
+    linear-gradient(135deg, rgba(255, 210, 63, 0.28), transparent 52%),
+    rgba(255, 248, 231, 0.08);
+  color: var(--club-yellow);
+  font-weight: 950;
+  text-transform: uppercase;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.22);
+  animation: reveal-up 0.9s ease both;
+}
+
+.image-tile::before {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  background: conic-gradient(from 90deg, transparent, rgba(255, 210, 63, 0.28), transparent 42%);
+  animation: slow-spin 10s linear infinite;
+}
+
+.image-tile img,
+.image-tile span {
+  position: relative;
+  z-index: 1;
+}
+
+.image-tile span {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+}
+
+.image-tile:nth-child(2),
+.image-tile:nth-child(4) {
+  transform: translateY(24px);
+}
+
+.news-image {
+  background:
+    radial-gradient(circle at center, rgba(255, 210, 63, 0.32), transparent 46%),
+    linear-gradient(135deg, var(--brand-brown), var(--dark-brown));
+}
+
+.trophy-glow {
+  position: absolute;
+  left: 7%;
+  bottom: 8%;
+  color: rgba(255, 210, 63, 0.86);
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: clamp(2.6rem, 7vw, 5.8rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  text-shadow: 0 0 28px rgba(255, 210, 63, 0.46);
+  animation: glow-slide 4.8s ease-in-out infinite;
+}
+
+.professional-footer a {
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.professional-footer a:hover {
+  color: var(--club-yellow);
+  transform: translateX(4px);
+}
+
+.form-field {
+  width: 100%;
+  border: 2px solid rgba(255, 210, 63, 0.34);
+  background: var(--cream);
+  color: var(--brand-brown);
+  font-weight: 800;
+  outline: none;
+  padding: 1rem 1.1rem;
+}
+
+.form-field::placeholder {
+  color: rgba(79, 55, 39, 0.56);
+}
+
+.form-field:focus {
+  border-color: var(--club-yellow);
+  box-shadow: 0 0 0 4px rgba(255, 210, 63, 0.28);
+}
+
+.hero-match::before {
+  content: "SIDAMA BUNA";
+  position: absolute;
+  bottom: 6%;
+  left: -2%;
+  z-index: -1;
+  color: rgba(255, 210, 63, 0.08);
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: clamp(6rem, 18vw, 17rem);
+  letter-spacing: 0.04em;
+  line-height: 0.8;
+  white-space: nowrap;
+}
+
+.hero-grass {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 80% 16%, rgba(255, 210, 63, 0.36), transparent 24%),
+    radial-gradient(circle at 60% 62%, rgba(255, 210, 63, 0.14), transparent 22%),
+    linear-gradient(135deg, #20150f 0%, #4f3727 46%, #7b573f 100%);
+}
+
+.hero-grass::before {
+  content: "";
+  position: absolute;
+  inset: 18% -10% auto auto;
+  width: min(68vw, 850px);
+  aspect-ratio: 1.6;
+  border: 3px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50% 50% 0 0;
+  transform: rotate(-8deg);
+}
+
+.hero-grass::after {
+  content: "";
+  position: absolute;
+  inset: auto -10% -8% -10%;
+  height: 47%;
+  background:
+    linear-gradient(90deg, transparent 49.8%, rgba(255, 255, 255, 0.42) 49.8% 50.2%, transparent 50.2%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.06) 0,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px,
+      transparent 82px
+    ),
+    linear-gradient(0deg, rgba(77, 116, 53, 0.82), rgba(77, 116, 53, 0.06));
+  transform: skewY(-4deg);
+  transform-origin: bottom left;
+}
+
+.score-badge {
+  max-width: 280px;
+  transform: rotate(-2deg);
+}
+
+.football-poster {
+  background:
+    radial-gradient(circle at 64% 28%, rgba(255, 210, 63, 0.34), transparent 18%),
+    linear-gradient(180deg, #4f3727 0 30%, #342217 30% 46%, #7a8a38 46% 100%);
+}
+
+.poster-stands {
+  position: absolute;
+  inset: 8% 7% auto;
+  height: 22%;
+  background:
+    linear-gradient(180deg, rgba(255, 210, 63, 0.18), transparent),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.7) 0 10px,
+      rgba(255, 210, 63, 0.74) 10px 20px,
+      rgba(79, 55, 39, 0.72) 20px 30px
+    );
+  clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%);
+  opacity: 0.72;
+}
+
+.poster-pitch {
+  position: absolute;
+  inset: auto -2% 0;
+  height: 58%;
+  background:
+    linear-gradient(90deg, transparent 49.7%, rgba(255, 255, 255, 0.68) 49.7% 50.3%, transparent 50.3%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.08) 0 52px,
+      rgba(255, 255, 255, 0.02) 52px 104px
+    ),
+    linear-gradient(180deg, #8a9a44, #52652c);
+}
+
+.poster-pitch::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  width: 42%;
+  aspect-ratio: 1;
+  border: 2px solid rgba(255, 255, 255, 0.62);
+  border-radius: 50%;
+  transform: translateX(-50%) perspective(380px) rotateX(60deg);
+}
+
+.poster-goal {
+  position: absolute;
+  bottom: 35%;
+  left: 50%;
+  width: 42%;
+  height: 19%;
+  border: 4px solid rgba(255, 255, 255, 0.78);
+  border-bottom: 0;
+  transform: translateX(-50%) perspective(420px) rotateX(15deg);
+}
+
+.poster-goal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.25) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.25) 0 1px, transparent 1px 18px);
+}
+
+.poster-player {
+  position: absolute;
+  width: 34px;
+  height: 90px;
+  border-radius: 18px 18px 10px 10px;
+  background: linear-gradient(180deg, var(--club-yellow) 0 34%, var(--brand-brown) 34% 68%, #ffffff 68% 100%);
+  box-shadow: 0 18px 28px rgba(0, 0, 0, 0.34);
+}
+
+.poster-player::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: -18px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #5a3824;
+}
+
+.poster-player::after {
+  content: "";
+  position: absolute;
+  left: -13px;
+  top: 26px;
+  width: 58px;
+  height: 8px;
+  border-radius: 99px;
+  background: var(--club-yellow);
+  transform: rotate(-16deg);
+}
+
+.poster-player-main {
+  bottom: 25%;
+  right: 30%;
+  animation: striker-run 3.8s ease-in-out infinite;
+}
+
+.poster-player-left {
+  bottom: 33%;
+  left: 30%;
+  opacity: 0.84;
+  transform: scale(0.95) rotate(9deg);
+  animation: player-bob 4.6s ease-in-out infinite;
+}
+
+.poster-player-right {
+  bottom: 42%;
+  right: 13%;
+  opacity: 0.74;
+  transform: scale(0.76) rotate(-9deg);
+  animation: player-bob 4.1s ease-in-out infinite reverse;
+}
+
+.football-ball {
+  position: absolute;
+  bottom: 23%;
+  left: 57%;
+  width: 54px;
+  aspect-ratio: 1;
+  border: 4px solid #1f2430;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #1f2430 0 16%, transparent 17%),
+    linear-gradient(36deg, transparent 43%, #1f2430 44% 48%, transparent 49%),
+    linear-gradient(108deg, transparent 43%, #1f2430 44% 48%, transparent 49%),
+    #ffffff;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.38);
+  animation: ball-roll 3.8s ease-in-out infinite;
+}
+
+.kit-panel {
+  background:
+    radial-gradient(circle at 50% 24%, rgba(255, 255, 255, 0.92) 0 11%, transparent 12%),
+    linear-gradient(90deg, transparent 47%, rgba(255, 255, 255, 0.26) 47% 53%, transparent 53%),
+    linear-gradient(135deg, var(--brand-brown), #6d4c37 58%, var(--club-yellow));
+  clip-path: polygon(12% 0, 38% 0, 50% 18%, 62% 0, 88% 0, 100% 100%, 0 100%);
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(42px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float-card {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+}
+
+@keyframes crest-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 22px 46px rgba(0, 0, 0, 0.32);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 28px 68px rgba(255, 210, 63, 0.28);
+  }
+}
+
+@keyframes slow-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes glow-slide {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.72;
+  }
+  50% {
+    transform: translateX(18px);
+    opacity: 1;
+  }
+}
+
+@keyframes striker-run {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1.5) rotate(-6deg);
+  }
+  50% {
+    transform: translate(-16px, -8px) scale(1.5) rotate(-2deg);
+  }
+}
+
+@keyframes player-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+@keyframes ball-roll {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(22px, -8px) rotate(95deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-grass::before {
+    width: 96vw;
+  }
+
+  .score-badge {
+    max-width: 235px;
+  }
+
+  .football-poster {
+    width: 100%;
+  }
+
+  .image-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .image-tile:nth-child(2),
+  .image-tile:nth-child(4) {
+    transform: none;
+  }
 }
